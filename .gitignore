@@ -1,0 +1,35 @@
+# 🔐 Virtual Environment
+venv/
+env/
+ENV/
+
+# 🐍 Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 📦 Distribution / Packaging
+build/
+dist/
+*.egg-info/
+
+# 📊 Generated Reports
+*.csv
+attendance_report.csv
+
+# 🤖 Trained Model
+trainer/trainer.yml
+
+# 📂 Dataset Images (optional if private)
+dataset/
+
+# 💻 VS Code Settings
+.vscode/
+
+# 🗂 OS Files
+.DS_Store
+Thumbs.db
+
+# 🔑 Environment Variables
+.env
