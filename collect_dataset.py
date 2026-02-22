@@ -1,56 +1,37 @@
-import cv2
 import os
+import cv2
 
-# Ask student name
-student_name = input("Enter Student Name: ")
+def collect_dataset(student_id, name):
+    dataset_path = "dataset"
 
-# Create folder if not exists
-dataset_path = "dataset"
-student_path = os.path.join(dataset_path, student_name)
+    if not os.path.exists(dataset_path):
+        os.makedirs(dataset_path)
 
-if not os.path.exists(student_path):
-    os.makedirs(student_path)
+    # 🔥 SAFE FOLDER NAME (no spaces)
+    safe_name = name.replace(" ", "_")
+    student_folder = os.path.join(dataset_path, f"{student_id}_{safe_name}")
 
-# Load Haarcascade
-face_detector = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-)
+    if not os.path.exists(student_folder):
+        os.makedirs(student_folder)
 
-cam = cv2.VideoCapture(0)
-cam.set(3, 640)
-cam.set(4, 480)
+    cam = cv2.VideoCapture(0)
+    sampleNum = 0
 
-count = 0
+    while True:
+        ret, img = cam.read()
+        if not ret:
+            break
 
-print("Collecting face samples... Look at camera")
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-while True:
-    ret, img = cam.read()
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        sampleNum += 1
+        file_path = os.path.join(student_folder, f"User.{student_id}.{sampleNum}.jpg")
+        cv2.imwrite(file_path, gray)
 
-    faces = face_detector.detectMultiScale(gray, 1.3, 5)
+        cv2.imshow("Capturing Faces", img)
 
-    for (x, y, w, h) in faces:
-        count += 1
+        if cv2.waitKey(1) == 13 or sampleNum >= 20:
+            break
 
-        face = gray[y:y+h, x:x+w]
-        face = cv2.resize(face, (200, 200))
-
-        cv2.imwrite(
-            f"{student_path}/{count}.jpg",
-            face
-        )
-
-        cv2.rectangle(img, (x, y), (x+w, y+h), (0,255,0), 2)
-
-    cv2.imshow("Collecting Faces", img)
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-    elif count >= 50:
-        break
-
-print("Face collection complete!")
-
-cam.release()
-cv2.destroyAllWindows()
+    cam.release()
+    cv2.destroyAllWindows()

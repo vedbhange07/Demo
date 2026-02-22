@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Reports</title>
+</head>
+<body>
+    <h2>Attendance Reports</h2>
+
+    <table border="1">
+        <tr>
+            <th>Student ID</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+
+        {% for row in reports %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="sidebar">
+        <h2>Smart Attendance</h2>
+        <a href="{{ url_for('students') }}">Students</a>
+        <a href="{{ url_for('attendance') }}">Attendance</a>
+        <a href="{{ url_for('reports') }}">Reports</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Dashboard</h1>
+<div class="cards">
+    <div class="card">
+        <h3>Total Students</h3>
+        <p class="number">{{ total_students }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Today Present</h3>
+        <p class="number">{{ today_present }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Start Attendance</h3>
+        <a href="{{ url_for('attendance') }}" class="btn">Start</a>
+    </div>
+
+    <div class="card">
+        <h3>Train Model</h3>
+        <a href="{{ url_for('train') }}" class="btn">Train</a>
+    </div>
+</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
